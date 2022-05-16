@@ -28,7 +28,7 @@ function Camera() {
 
   const postRequest = (image) => {
         console.log(image.split("base64,")[1])
-        axios.post("http://localhost:8080/api/searchImages", {
+        axios.post("https://nameless-shelf-91357.herokuapp.com/api/searchImages", {
           base64: image.split("base64,")[1]
         })
           .then((response) => { 
