@@ -10,7 +10,7 @@ const corsOptions ={
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
-
+//
 const vision = require('@google-cloud/vision');
 
 const productSearchClient = new vision.ProductSearchClient({keyFilename: "./key.json"});
