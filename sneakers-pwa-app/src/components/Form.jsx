@@ -35,6 +35,16 @@ function Form() {
   return (
     <>
     <Camera setParentState={setStateFromChild}/>
+
+    {/* The next 6 lines of code are just for testing purposes
+        todo Plamen: Implement actual front-end solution and remove them */}
+    <div>{sneakersDetails.name}</div>
+    <div>{sneakersDetails.score}</div>
+    <div>{sneakersDetails.material}</div>
+    <div>{sneakersDetails.color}</div>
+    {sneakersDetails.rain ? <div>suitable for rain</div> : <div>not suitable for rain</div>}
+    {sneakersDetails.snow ? <div>suitable for snow</div> : <div>not suitable for snow</div>}
+
     </>
   )
 }
