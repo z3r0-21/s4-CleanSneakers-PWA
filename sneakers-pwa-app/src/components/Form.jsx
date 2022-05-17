@@ -1,7 +1,21 @@
 import React, { useState } from "react";
 import Camera from './Camera'
+import {Button, Modal, Figure, InputGroup, Form, ListGroup, ProgressBar, FormControl, Alert} from 'react-bootstrap'
+import { useEffect } from "react";
 
-function Form() {
+function Form1() {
+  const [show1, setShow1] = useState(false);
+
+  const [showAlert, setShowAlert] = useState(false);
+
+
+  const handleCloseAlert = () => setShowAlert(false);
+  const handleShowAlert = () => setShowAlert(true);
+
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
+
+
 
     // todo Plamen: use the apiResponse const to add sneakers. (must)
     // Regardless of the the details being added automatically (Google Vision API) or manually (user filling text field and checkboxes)
@@ -20,6 +34,7 @@ function Form() {
         rain: false,
         snow: false 
     })
+  
 
     const setStateFromChild = (data) => { 
         setSneakerDetails(
@@ -32,21 +47,151 @@ function Form() {
               snow: data.product.productLabels[2].value === "t" ? true : false
             })
      }
+
+     useEffect(() => {
+      if(sneakersDetails.score < 0.75){
+        handleShowAlert()
+      }
+
+    })
+
+
+
+
+
+
+
   return (
     <>
-    <Camera setParentState={setStateFromChild}/>
-
-    {/* The next 6 lines of code are just for testing purposes
+    <div className="body">
+   <Form className="form">
+ {/* The next 6 lines of code are just for testing purposes
         todo Plamen: Implement actual front-end solution and remove them */}
-    <div>{sneakersDetails.name}</div>
-    <div>{sneakersDetails.score}</div>
-    <div>{sneakersDetails.material}</div>
-    <div>{sneakersDetails.color}</div>
-    {sneakersDetails.rain ? <div>suitable for rain</div> : <div>not suitable for rain</div>}
-    {sneakersDetails.snow ? <div>suitable for snow</div> : <div>not suitable for snow</div>}
+   
+      
+   <div className="header">
+
+<h1>Add sneakers</h1>
+
+</div>
+
+
+
+<div className="buttons">
+
+<Button onClick={handleShow1}>Add new sneakers</Button>
+
+</div>
+
+  
+
+
+
+
+
+{/* Modal Automaticaly */}
+<Modal className='Modal' show={show1} onHide={handleClose1}>
+<Modal.Header closeButton>
+<Modal.Title>Add automatically</Modal.Title>
+</Modal.Header>
+<Modal.Body>
+
+
+<div className='frame'>
+<Camera setParentState={setStateFromChild}/>
+
+
+
+
+
+
+<ListGroup>
+<InputGroup className="mb-3">
+    <InputGroup.Text id="basic-addon1">Sneaker name:</InputGroup.Text>
+    <FormControl
+      defaultValue={sneakersDetails.name} 
+    
+      aria-describedby="basic-addon1"
+    />
+  </InputGroup>
+
+  <InputGroup className="mb-3">
+    <InputGroup.Text id="basic-addon1">Score:</InputGroup.Text>
+    <FormControl
+      value = {sneakersDetails.score}
+
+      aria-describedby="basic-addon1"
+    />
+    
+  </InputGroup>
+     
+<Alert show={showAlert} variant="success">
+        <Alert.Heading>!</Alert.Heading>
+        <p>
+          Your score is under 75% which means there is no match!
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={handleCloseAlert} variant="outline-success">
+            Close me!
+          </Button>
+        </div>
+      </Alert>
+
+<p>  <ProgressBar now={sneakersDetails.score*100} label="Matching score"  />
+</p>
+
+  <InputGroup className="mb-3">
+    <InputGroup.Text id="basic-addon1">Materials:</InputGroup.Text>
+    <FormControl
+      defaultValue = {sneakersDetails.material}
+
+      aria-describedby="basic-addon1"
+    />
+  </InputGroup>
+
+  <InputGroup className="mb-3">
+    <InputGroup.Text id="basic-addon1">Colors:</InputGroup.Text>
+    <FormControl
+      defaultValue = {sneakersDetails.color}
+
+      aria-describedby="basic-addon1"
+    />
+  </InputGroup>
+
+  <InputGroup className="mb-3">
+    <InputGroup.Text id="basic-addon1">Suitable:</InputGroup.Text>
+    <FormControl
+      defaultValue={sneakersDetails.name} 
+  
+      aria-describedby="basic-addon1"
+    />
+  </InputGroup>
+
+<ListGroup.Item>    {sneakersDetails.rain ? <div>suitable for rain</div> : <div>not suitable for rain</div>}
+</ListGroup.Item>
+<ListGroup.Item>    {sneakersDetails.snow ? <div>suitable for snow</div> : <div>not suitable for snow</div>}
+</ListGroup.Item>
+</ListGroup>
+</div>
+
+</Modal.Body>
+<Modal.Footer>
+<Button onClick={handleClose1}>Save sneakers</Button>
+</Modal.Footer>
+</Modal>
+
+
+
+
+
+     
+   </Form>
+    </div>
+
 
     </>
   )
 }
 
-export default Form
+export default Form1

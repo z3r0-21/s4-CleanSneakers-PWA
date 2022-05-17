@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
+import {Button} from 'react-bootstrap'
 
 function Camera({ setParentState }) {
   let videoRef = useRef(null);
@@ -83,10 +84,13 @@ function Camera({ setParentState }) {
 
         todo Dimitar: make it so the video stream does not show up after taking picture (could)
        */}
-      <video ref={videoRef} ></video>
-      <button onClick={takePicture}>Take Picture</button>
-      <canvas ref={photoRef}></canvas>
-      <button onClick={clearImage}>Clear Image</button>
+      
+      
+      <video className="video" ref={videoRef} ></video>
+      <Button className="buttontakepicture" onClick={takePicture}>Take Picture</Button>
+      <Button className="buttonclearimage" onClick={clearImage}>Clear Image</Button>
+      <canvas className="canvas" ref={photoRef}></canvas>
+      
       </>
   );
 }
