@@ -25,10 +25,6 @@ function MySneakers() {
 
     return (
         <>
-        <Row className="text-center">
-            <h1 className="mt-4 mb-3">My sneakers</h1>
-            <Button>Add new sneakers</Button>
-        </Row>
 
 
         <ul className="list-unstyled">

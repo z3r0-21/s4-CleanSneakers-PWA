@@ -98,7 +98,8 @@ function Form1() {
           {/* The next 6 lines of code are just for testing purposes
         todo Plamen: Implement actual front-end solution and remove them */}
 
-          <div className="buttons"></div>
+          <div className="buttons">            <Button>Add new sneakers</Button>
+</div>
 
           {/* Modal Automaticaly */}
           <Modal className="Modal" show={show1} onHide={handleClose1}>
