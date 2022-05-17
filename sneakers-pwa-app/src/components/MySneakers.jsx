@@ -7,23 +7,21 @@ import { faSun, faSnowflake, faDroplet } from '@fortawesome/free-solid-svg-icons
 
 const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
-
 function MySneakers() {
-    
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
-    const[sneakers, setSneakers] = useState([]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [sneakers, setSneakers] = useState([]);
 
-    React.useEffect(() => {
-        getMySneakers()
-      }, []);
+  React.useEffect(() => {
+    getMySneakers();
+  }, []);
 
-    function getMySneakers(){
-        axios.get(baseURL + "/sneakers").then((response) => {
-            setSneakers(response.data);
-        });
-    }
+  function getMySneakers() {
+    axios.get(baseURL + "/sneakers").then((response) => {
+      setSneakers(response.data);
+    });
+  }
 
     return (
         <>
@@ -67,4 +65,4 @@ const handleShow = () => setShow(true);
     )
 }
 
-export default MySneakers
+export default MySneakers;
