@@ -2,12 +2,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 
+const baseURL = "https://nameless-shelf-91357.herokuapp.com";
+
+
 function Camera({ setParentState }) {
   let videoRef = useRef(null);
   let photoRef = useRef(null);
 
   const postRequest = (image) => {
-        axios.post("https://nameless-shelf-91357.herokuapp.com/api/searchImages", {
+        axios.post(baseURL + "/api/searchImages", {
           base64: image.split("base64,")[1]
         })
           .then((response) => { 
@@ -18,7 +21,9 @@ function Camera({ setParentState }) {
   const getVideo = () => {
     navigator.mediaDevices
       .getUserMedia({
-        video: true
+        video: {
+          facingMode: 'environment'
+        }
       })
       .then((stream) => {
         let video = videoRef.current;
