@@ -16,73 +16,73 @@ import axios from "axios";
 
 const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
-  function Form1({ handleModal, showModal }) {
 
-    // todo Plamen: use the apiResponse const to add sneakers. (must)
-    // Regardless of the the details being added automatically (Google Vision API) or manually (user filling text field and checkboxes)
-    // make sure to use this state to accomodate those details.
-    const [sneakersDetails, setSneakerDetails] = useState({ 
+function Form1({ handleModal, showModal }) {
+
+  // todo Plamen: use the apiResponse const to add sneakers. (must)
+  // Regardless of the the details being added automatically (Google Vision API) or manually (user filling text field and checkboxes)
+  // make sure to use this state to accomodate those details.
+  const [sneakersDetails, setSneakerDetails] = useState({ 
+      name: '',
+
+      // score of the image search between 0 and 1 where 1 means the Google's API is 100% certain that it is the exact same image
+      // todo Plamen: if the score is !=0 display it in a horizontal bar (should)
+      score: -1, 
+      material: '',
+      color: '',
+
+      // indicates if the selected shoes are suitable for rain/snow
+      //todo Plamen: add checkboxes for those (must)
+      rain: false,
+      snow: false 
+  })
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleAlert = () => {
+    setShowAlert(!showAlert);
+  };
+
+  useEffect(() => {
+    if (sneakersDetails.score > 0 && sneakersDetails.score < 0.75) {
+
+      setSneakerDetails({
         name: '',
-
-        // score of the image search between 0 and 1 where 1 means the Google's API is 100% certain that it is the exact same image
-        // todo Plamen: if the score is !=0 display it in a horizontal bar (should)
         score: -1, 
         material: '',
         color: '',
-
-        // indicates if the selected shoes are suitable for rain/snow
-        //todo Plamen: add checkboxes for those (must)
         rain: false,
         snow: false 
-    })
+      });
 
-
-    const handleAlert = () => {
-      setShowAlert(!showAlert);
-    };
-
-    useEffect(() => {
-      if (sneakersDetails.score > 0 && sneakersDetails.score < 0.75) {
-
-        setSneakerDetails({
-          name: '',
-          score: 0, 
-          material: '',
-          color: '',
-          rain: false,
-          snow: false 
-        });
-
-        handleAlert();
-      }
-    },[sneakersDetails])
-
-    function addSneakers(){
-      axios.post(baseURL + "/addsneakers", {
-        name: sneakersDetails.name,
-        material: sneakersDetails.material,
-        color: sneakersDetails.color,
-        rain: sneakersDetails.rain,
-        snow: sneakersDetails.snow
-      })
-      handleModal()
+      handleAlert();
     }
+  },[sneakersDetails])
 
-    const setStateFromChild = (data) => { 
-        setSneakerDetails(
-            {
-              name: data.product.displayName, 
-              score: data.score, 
-              material: data.product.productLabels[0].value,
-              color: data.product.productLabels[1].value,
-              rain: data.product.productLabels[2].value === "t" ? true : false,
-              snow: data.product.productLabels[2].value === "t" ? true : false
-            })
-     }
+  function addSneakers(){
+    axios.post(baseURL + "/addsneakers", {
+      name: sneakersDetails.name,
+      material: sneakersDetails.material,
+      color: sneakersDetails.color,
+      rain: sneakersDetails.rain,
+      snow: sneakersDetails.snow
+    })
+  }
 
-     const onChangeHandler = event => {
-      setSneakerDetails(...event.target.value);
-   };
+  const setStateFromChild = (data) => { 
+      setSneakerDetails(
+          {
+            name: data.product.displayName, 
+            score: data.score, 
+            material: data.product.productLabels[0].value,
+            color: data.product.productLabels[1].value,
+            rain: data.product.productLabels[2].value === "t" ? true : false,
+            snow: data.product.productLabels[2].value === "t" ? true : false
+          })
+   }
+
+
+
 
  
     const handleChange =(data) => {
