@@ -36,7 +36,6 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         snow: false 
     })
 
-    const [showAlert, setShowAlert] = useState(false);
 
     const handleAlert = () => {
       setShowAlert(!showAlert);
@@ -66,6 +65,7 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         rain: sneakersDetails.rain,
         snow: sneakersDetails.snow
       })
+      handleModal()
     }
 
     const setStateFromChild = (data) => { 
@@ -85,7 +85,9 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
    };
 
  
-
+    const handleChange =(data) => {
+      console.log(data.product.displayName)
+  };
   return (
     <>
       <Modal show={showModal} onHide={handleModal}>
@@ -95,7 +97,7 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         <Modal.Body>
         <Camera setParentState={setStateFromChild}/>
         <ListGroup>
-                  <InputGroup className="mb-3">
+                  <InputGroup onChange={handleChange} className="mb-3">
                     <InputGroup.Text id="basic-addon1">
                       Name:
                     </InputGroup.Text>
