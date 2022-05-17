@@ -17,9 +17,7 @@ import axios from "axios";
 const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
   function Form1({ handleModal, showModal }) {
-    const [showAlert, setShowAlert] = useState(false);
-    const handleCloseAlert = () => setShowAlert(false);
-    const handleShowAlert = () => setShowAlert(true);
+
     // todo Plamen: use the apiResponse const to add sneakers. (must)
     // Regardless of the the details being added automatically (Google Vision API) or manually (user filling text field and checkboxes)
     // make sure to use this state to accomodate those details.
@@ -49,7 +47,7 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
         setSneakerDetails({
           name: '',
-          score: -1, 
+          score: 0, 
           material: '',
           color: '',
           rain: false,
@@ -82,6 +80,10 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
             })
      }
 
+     const onChangeHandler = event => {
+      setSneakerDetails(...event.target.value);
+   };
+
  
 
   return (
@@ -95,37 +97,34 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         <ListGroup>
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="basic-addon1">
-                      Sneaker name:
+                      Name:
                     </InputGroup.Text>
                     <FormControl
                       defaultValue={sneakersDetails.name}
                       aria-describedby="basic-addon1"
                     />
                   </InputGroup>
-
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">Score:</InputGroup.Text>
-                    <FormControl
-                      value={sneakersDetails.score}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <p>
-                    {" "}
-                    <ProgressBar
-                      now={sneakersDetails.score * 100}
-                      label="Matching score"
-                    />
-                  </p>
-
+                  
+                  {sneakersDetails.score >= 0 && sneakersDetails.score < 0.75 &&
                   <Alert show={showAlert} variant="danger" onClose={() => setShowAlert(false)}>
-      Your score is under 75% which means there is no match!
-       Try again
-    </Alert>
+                    Could not find any matching sneakers Try again or enter the details manually. 
+                     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Learn how to get more accurate results when using the sneakers scanner.</a>
+
+                  </Alert>
+                  }
+                  {sneakersDetails.score >= 0.75 &&
+                  <p>
+                  <ProgressBar
+                    now={sneakersDetails.score * 100}
+                    label="Matching score"
+                  />
+                  </p>
+                  }
+
+                  
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="basic-addon1">
-                      Materials:
+                      Material:
                     </InputGroup.Text>
                     <FormControl
                       defaultValue={sneakersDetails.material}
@@ -134,36 +133,23 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
                   </InputGroup>
 
                   <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">Colors:</InputGroup.Text>
+                    <InputGroup.Text id="basic-addon1">Color:</InputGroup.Text>
                     <FormControl
                       defaultValue={sneakersDetails.color}
                       aria-describedby="basic-addon1"
                     />
                   </InputGroup>
 
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">
-                      Suitable:
-                    </InputGroup.Text>
-                    <FormControl
-                      defaultValue={sneakersDetails.name}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <h4>Mark the checkboxes if info is correct</h4>
-                  {sneakersDetails.rain ? (
-                    <div>Suitable for rain</div>
-                  ) : (
-                    <div>Not suitable for rain</div>
-                  )}
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  {sneakersDetails.snow ? (
-                    <div>Suitable for snow</div>
-                  ) : (
-                    <div>Not suitable for snow</div>
-                  )}
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                  <h5>Weather conditions</h5>
+                  <label>
+                    Rain
+                  </label>
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
+                  <label>
+                    Snow
+                  </label>
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
+                  
                 </ListGroup>
 
         </Modal.Body>
