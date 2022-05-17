@@ -6,7 +6,7 @@ import MySneakers from './components/MySneakers';
 function App() {
   return (
     <>
-    <MySneakers />
+    <Form />
     </>
   );
 }
