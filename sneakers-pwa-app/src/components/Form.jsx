@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import MySneakers from "./MySneakers";
 
-function Form1() {
+function Form1({ handleModal, showModal }) {
   const [show1, setShow1] = useState(false);
 
   const [showAlert, setShowAlert] = useState(false);
@@ -89,125 +89,20 @@ function Form1() {
 
   return (
     <>
-      <div className="body">
-        <div className="header">
-          <h1>Add sneakers</h1>
-        </div>
-
-        <Form className="form">
-          {/* The next 6 lines of code are just for testing purposes
-        todo Plamen: Implement actual front-end solution and remove them */}
-
-          <div className="buttons"></div>
-
-          {/* Modal Automaticaly */}
-          <Modal className="Modal" show={show1} onHide={handleClose1}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add automatically</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div className="frame">
-                <Camera setParentState={setStateFromChild} />
-
-                <ListGroup>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">
-                      Sneaker name:
-                    </InputGroup.Text>
-                    <FormControl
-                      defaultValue={sneakersDetails.name}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">Score:</InputGroup.Text>
-                    <FormControl
-                      value={sneakersDetails.score}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <p>
-                    {" "}
-                    <ProgressBar
-                      now={sneakersDetails.score * 100}
-                      label="Matching score"
-                    />
-                  </p>
-
-                  <Alert show={showAlert} variant="danger">
-                    <Alert.Heading>!</Alert.Heading>
-                    <p>
-                      Your score is under 75% which means there is no match!
-                    </p>
-                    <hr />
-                  </Alert>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">
-                      Materials:
-                    </InputGroup.Text>
-                    <FormControl
-                      defaultValue={sneakersDetails.material}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">Colors:</InputGroup.Text>
-                    <FormControl
-                      defaultValue={sneakersDetails.color}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">
-                      Suitable:
-                    </InputGroup.Text>
-                    <FormControl
-                      defaultValue={sneakersDetails.name}
-                      aria-describedby="basic-addon1"
-                    />
-                  </InputGroup>
-
-                  <h4>Mark the checkboxes if info is correct</h4>
-                  {sneakersDetails.rain ? (
-                    <div>Suitable for rain</div>
-                  ) : (
-                    <div>Not suitable for rain</div>
-                  )}
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  {sneakersDetails.snow ? (
-                    <div>Suitable for snow</div>
-                  ) : (
-                    <div>Not suitable for snow</div>
-                  )}
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                </ListGroup>
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                onClick={function (event) {
-                  addSneakers();
-                  clearFields();
-                  handleClose1();
-                }}
-              >
-                Save sneakers
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Form>
-
-        <div className="mysneakers">
-          <h1>My sneakers</h1>
-
-          <MySneakers />
-          <Button onClick={handleShow1}>Add new sneakers</Button>
-        </div>
-      </div>
+      <Modal show={showModal} onHide={handleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this tex t in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={addSneakers}>
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
