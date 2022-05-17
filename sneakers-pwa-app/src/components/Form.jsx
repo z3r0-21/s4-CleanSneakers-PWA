@@ -70,7 +70,6 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
           name: '',
           productLabels: ['','', false, false]
         },
-        score: -1
       }
 
       setSneakerDetails(noDetails)
@@ -80,6 +79,7 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
      React.useEffect(() => {
       if(sneakersDetails.score < 0.75){
         handleShowAlert()
+        clearFields()
       }
       else{
         handleCloseAlert()
@@ -95,27 +95,25 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
   return (
     <>
+    
     <div className="body">
-      <div className="mysneakers">
-        <h1>My sneakers</h1>
-      <MySneakers/>
-      </div>
+    <div className="header">
+
+<h1>Add sneakers</h1>
+
+</div>
+    
    <Form className="form">
  {/* The next 6 lines of code are just for testing purposes
         todo Plamen: Implement actual front-end solution and remove them */}
    
       
-   <div className="header">
-
-<h1>Add sneakers</h1>
-
-</div>
+   
 
 
 
 <div className="buttons">
 
-<Button onClick={handleShow1}>Add new sneakers</Button>
 
 </div>
 
@@ -162,7 +160,11 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
     
   </InputGroup>
      
-<Alert show={showAlert} variant="danger">
+
+<p>  <ProgressBar now={sneakersDetails.score*100} label="Matching score"  />
+</p>
+
+  <Alert show={showAlert} variant="danger">
         <Alert.Heading>!</Alert.Heading>
         <p>
           Your score is under 75% which means there is no match!
@@ -170,10 +172,6 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         <hr />
         
       </Alert>
-
-<p>  <ProgressBar now={sneakersDetails.score*100} label="Matching score"  />
-</p>
-
   <InputGroup className="mb-3">
     <InputGroup.Text id="basic-addon1">Materials:</InputGroup.Text>
     <FormControl
@@ -201,16 +199,18 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
     />
   </InputGroup>
 
-<ListGroup.Item>    {sneakersDetails.rain ? <div>suitable for rain</div> : <div>not suitable for rain</div>}
-</ListGroup.Item>
-<ListGroup.Item>    {sneakersDetails.snow ? <div>suitable for snow</div> : <div>not suitable for snow</div>}
-</ListGroup.Item>
+      <h4>Mark the checkboxes if info is correct</h4>  
+  {sneakersDetails.rain ? <div>Suitable for rain</div> : <div>Not suitable for rain</div>}
+  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+  {sneakersDetails.snow ? <div>Suitable for snow</div> : <div>Not suitable for snow</div>}
+  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+
 </ListGroup>
 </div>
 
 </Modal.Body>
 <Modal.Footer>
-<Button onClick={function(event){ addSneakers(); clearFields(); handleClose1()}}>Save</Button>
+<Button onClick={function(event){ addSneakers(); clearFields(); handleClose1()}}>Save sneakers</Button>
 </Modal.Footer>
 </Modal>
 
@@ -218,7 +218,15 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
      
    </Form>
 
+   <div className="mysneakers">
+        <h1>My sneakers</h1>
+        
+      <MySneakers/>
+      <Button onClick={handleShow1}>Add new sneakers</Button>
     </div>
+
+
+      </div>
 
     </>
   )

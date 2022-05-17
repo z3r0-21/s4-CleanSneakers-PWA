@@ -25,7 +25,7 @@ const handleShow = () => setShow(true);
     }
 
     return (
-        <><ul>
+        <><ul className="sneakers">
             {sneakers.map(sneaker => <li key={sneaker.id}>{sneaker.sneaker_name}</li>
             )}
         </ul>
