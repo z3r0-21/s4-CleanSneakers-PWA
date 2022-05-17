@@ -58,7 +58,7 @@ function MySneakers() {
                 {sneaker.snow === 1 &&
                     <FontAwesomeIcon icon={faSnowflake} className="mx-2"/>
                 }
-                {sneaker.color === "black" && sneaker.material === "leather" && sneaker.snow === 0 && sneaker.rain === 0 &&
+                {sneaker.color === "black" && sneaker.material === "leather" && sneaker.snow !== 1 && sneaker.rain !== 1 &&
                     <p className="text-muted">Not suitable for any weather type...</p>
                 }
                 </span>

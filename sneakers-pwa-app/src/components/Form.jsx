@@ -36,6 +36,28 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         snow: false 
     })
 
+    const [showAlert, setShowAlert] = useState(false);
+
+    const handleAlert = () => {
+      setShowAlert(!showAlert);
+    };
+
+    useEffect(() => {
+      if (sneakersDetails.score > 0 && sneakersDetails.score < 0.75) {
+
+        setSneakerDetails({
+          name: '',
+          score: -1, 
+          material: '',
+          color: '',
+          rain: false,
+          snow: false 
+        });
+
+        handleAlert();
+      }
+    },[sneakersDetails])
+
     function addSneakers(){
       axios.post(baseURL + "/addsneakers", {
         name: sneakersDetails.name,
@@ -57,6 +79,8 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
               snow: data.product.productLabels[2].value === "t" ? true : false
             })
      }
+
+ 
 
   return (
     <>
