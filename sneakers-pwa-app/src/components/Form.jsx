@@ -48,7 +48,7 @@ function Form1({ handleModal, showModal }) {
 
       setSneakerDetails({
         name: '',
-        score: -1, 
+        score: 0, 
         material: '',
         color: '',
         rain: false,
