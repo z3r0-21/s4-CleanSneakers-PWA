@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Camera from './Camera'
 import {Button, Modal, Figure, InputGroup, Form, ListGroup, ProgressBar, FormControl, Alert} from 'react-bootstrap'
 import { useEffect } from "react";
+import axios from "axios";
+import MySneakers from './MySneakers';
+
 
 function Form1() {
   const [show1, setShow1] = useState(false);
@@ -15,6 +18,8 @@ function Form1() {
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
 
+
+const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
 
     // todo Plamen: use the apiResponse const to add sneakers. (must)
@@ -36,6 +41,16 @@ function Form1() {
     })
   
 
+    function addSneakers(){
+      axios.post(baseURL + "/addsneakers", {
+        name: sneakersDetails.name,
+        material: sneakersDetails.material,
+        color: sneakersDetails.color,
+        rain: sneakersDetails.rain,
+        snow: sneakersDetails.snow
+      })
+    }
+
     const setStateFromChild = (data) => { 
         setSneakerDetails(
             {
@@ -48,9 +63,26 @@ function Form1() {
             })
      }
 
-     useEffect(() => {
+
+     const clearFields = () => {
+      const noDetails = {
+        product:{
+          name: '',
+          productLabels: ['','', false, false]
+        },
+        score: -1
+      }
+
+      setSneakerDetails(noDetails)
+     }
+
+
+     React.useEffect(() => {
       if(sneakersDetails.score < 0.75){
         handleShowAlert()
+      }
+      else{
+        handleCloseAlert()
       }
 
     })
@@ -64,6 +96,10 @@ function Form1() {
   return (
     <>
     <div className="body">
+      <div className="mysneakers">
+        <h1>My sneakers</h1>
+      <MySneakers/>
+      </div>
    <Form className="form">
  {/* The next 6 lines of code are just for testing purposes
         todo Plamen: Implement actual front-end solution and remove them */}
@@ -98,14 +134,15 @@ function Form1() {
 
 
 <div className='frame'>
+
+
+
+
 <Camera setParentState={setStateFromChild}/>
 
 
-
-
-
-
 <ListGroup>
+  
 <InputGroup className="mb-3">
     <InputGroup.Text id="basic-addon1">Sneaker name:</InputGroup.Text>
     <FormControl
@@ -125,17 +162,13 @@ function Form1() {
     
   </InputGroup>
      
-<Alert show={showAlert} variant="success">
+<Alert show={showAlert} variant="danger">
         <Alert.Heading>!</Alert.Heading>
         <p>
           Your score is under 75% which means there is no match!
         </p>
         <hr />
-        <div className="d-flex justify-content-end">
-          <Button onClick={handleCloseAlert} variant="outline-success">
-            Close me!
-          </Button>
-        </div>
+        
       </Alert>
 
 <p>  <ProgressBar now={sneakersDetails.score*100} label="Matching score"  />
@@ -177,18 +210,15 @@ function Form1() {
 
 </Modal.Body>
 <Modal.Footer>
-<Button onClick={handleClose1}>Save sneakers</Button>
+<Button onClick={function(event){ addSneakers(); clearFields(); handleClose1()}}>Save</Button>
 </Modal.Footer>
 </Modal>
 
 
-
-
-
      
    </Form>
-    </div>
 
+    </div>
 
     </>
   )

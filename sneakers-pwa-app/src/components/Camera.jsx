@@ -3,23 +3,28 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import {Button} from 'react-bootstrap'
 
+const baseURL = "https://nameless-shelf-91357.herokuapp.com";
+
+
 function Camera({ setParentState }) {
   let videoRef = useRef(null);
   let photoRef = useRef(null);
 
-  const postRequest = (image) => {
-        axios.post("https://nameless-shelf-91357.herokuapp.com/api/searchImages", {
-          base64: image.split("base64,")[1]
-        })
-          .then((response) => { 
-           setParentState(response.data[0])
-          });
-      }
+  const getMatchingImages = (image) => {
+      axios.post(baseURL + "/api/searchImages", {
+        base64: image.split("base64,")[1]
+      })
+        .then((response) => { 
+          setParentState(response.data[0])
+        });
+    }
 
   const getVideo = () => {
     navigator.mediaDevices
       .getUserMedia({
-        video: true
+        video: {
+          facingMode: 'environment'
+        }
       })
       .then((stream) => {
         let video = videoRef.current;
@@ -47,7 +52,7 @@ function Camera({ setParentState }) {
     let ctx = photo.getContext('2d')
  
     ctx.drawImage(video, 0, 0, width, height)
-    postRequest(photo.toDataURL());
+    getMatchingImages(photo.toDataURL());
     
   }
  
@@ -75,7 +80,6 @@ function Camera({ setParentState }) {
   }, [videoRef]);
   
   //todo Plamen: add Submit button that clear the form (regardless of it being auto or manually filled; use the clearImage method) (must)
-  //todo Dimitar: add submitted sneakers to database (should)
   return (
       <>
       {/* 
@@ -87,9 +91,9 @@ function Camera({ setParentState }) {
       
       
       <video className="video" ref={videoRef} ></video>
+      <canvas className="canvas" ref={photoRef}></canvas>
       <Button className="buttontakepicture" onClick={takePicture}>Take Picture</Button>
       <Button className="buttonclearimage" onClick={clearImage}>Clear Image</Button>
-      <canvas className="canvas" ref={photoRef}></canvas>
       
       </>
   );
