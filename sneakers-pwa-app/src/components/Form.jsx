@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Camera from './Camera'
+import axios from "axios";
+
+const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
 function Form() {
 
@@ -21,6 +24,16 @@ function Form() {
         snow: false 
     })
 
+    function addSneakers(){
+      axios.post(baseURL + "/addsneakers", {
+        name: sneakersDetails.name,
+        material: sneakersDetails.material,
+        color: sneakersDetails.color,
+        rain: sneakersDetails.rain,
+        snow: sneakersDetails.snow
+      })
+    }
+
     const setStateFromChild = (data) => { 
         setSneakerDetails(
             {
@@ -36,7 +49,7 @@ function Form() {
     <>
     <Camera setParentState={setStateFromChild}/>
 
-    {/* The next 6 lines of code are just for testing purposes
+    {/* The next 7 lines of code are just for testing purposes
         todo Plamen: Implement actual front-end solution and remove them */}
     <div>{sneakersDetails.name}</div>
     <div>{sneakersDetails.score}</div>
@@ -44,7 +57,7 @@ function Form() {
     <div>{sneakersDetails.color}</div>
     {sneakersDetails.rain ? <div>suitable for rain</div> : <div>not suitable for rain</div>}
     {sneakersDetails.snow ? <div>suitable for snow</div> : <div>not suitable for snow</div>}
-
+    <button onClick={addSneakers}>Test</button>
     </>
   )
 }

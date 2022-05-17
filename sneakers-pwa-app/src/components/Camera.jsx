@@ -9,14 +9,14 @@ function Camera({ setParentState }) {
   let videoRef = useRef(null);
   let photoRef = useRef(null);
 
-  const postRequest = (image) => {
-        axios.post(baseURL + "/api/searchImages", {
-          base64: image.split("base64,")[1]
-        })
-          .then((response) => { 
-           setParentState(response.data[0])
-          });
-      }
+  const getMatchingImages = (image) => {
+      axios.post(baseURL + "/api/searchImages", {
+        base64: image.split("base64,")[1]
+      })
+        .then((response) => { 
+          setParentState(response.data[0])
+        });
+    }
 
   const getVideo = () => {
     navigator.mediaDevices
@@ -51,7 +51,7 @@ function Camera({ setParentState }) {
     let ctx = photo.getContext('2d')
  
     ctx.drawImage(video, 0, 0, width, height)
-    postRequest(photo.toDataURL());
+    getMatchingImages(photo.toDataURL());
     
   }
  
@@ -79,7 +79,6 @@ function Camera({ setParentState }) {
   }, [videoRef]);
   
   //todo Plamen: add Submit button that clear the form (regardless of it being auto or manually filled; use the clearImage method) (must)
-  //todo Dimitar: add submitted sneakers to database (should)
   return (
       <>
       {/* 
