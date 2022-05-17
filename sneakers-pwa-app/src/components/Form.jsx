@@ -38,7 +38,6 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
         snow: false 
     })
 
-    const [showAlert, setShowAlert] = useState(false);
 
     const handleAlert = () => {
       setShowAlert(!showAlert);
