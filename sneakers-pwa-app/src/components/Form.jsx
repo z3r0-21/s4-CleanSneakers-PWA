@@ -82,30 +82,8 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
             })
      }
 
-<<<<<<< HEAD
  
 
-=======
-     const clearFields = () => {
-      const noDetails = {
-        product: {
-          name: "",
-          productLabels: ["", "", false, false],
-        },
-      };
-  
-      setSneakerDetails(noDetails);
-    };
-  
-    React.useEffect(() => {
-      if (sneakersDetails.score < 0.75) {
-        handleShowAlert();
-      } else {
-        handleCloseAlert();
-      }
-    });
-  
->>>>>>> 7cef0dc1466ce21bdc96e93c7ef8ba034eb174ce
   return (
     <>
       <Modal show={showModal} onHide={handleModal}>
