@@ -74,6 +74,15 @@ function Form1({ handleModal, showModal }) {
     const handleChange =(data) => {
       console.log(data.product.displayName)
   };
+
+  const onHandleChange = (e) => {
+    let stateUpdated = {
+      ...sneakersDetails,
+      [e.target.name]: e.target.value,
+    };
+    setSneakerDetails(stateUpdated);
+  };
+
   return (
     <>
       <Modal show={showModal} onHide={handleModal}>
@@ -90,6 +99,7 @@ function Form1({ handleModal, showModal }) {
                     <FormControl
                       defaultValue={sneakersDetails.name}
                       aria-describedby="basic-addon1"
+                      name="name" onChange={onHandleChange}
                     />
                   </InputGroup>
                   
@@ -117,6 +127,7 @@ function Form1({ handleModal, showModal }) {
                     <FormControl
                       defaultValue={sneakersDetails.material}
                       aria-describedby="basic-addon1"
+                      name="material" onChange={onHandleChange}
                     />
                   </InputGroup>
 
@@ -125,18 +136,32 @@ function Form1({ handleModal, showModal }) {
                     <FormControl
                       defaultValue={sneakersDetails.color}
                       aria-describedby="basic-addon1"
+                      name="color" onChange={onHandleChange}
                     />
                   </InputGroup>
 
-                  <h5>Weather conditions</h5>
-                  <label>
-                    Rain
-                  </label>
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
-                  <label>
-                    Snow
-                  </label>
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
+                  <Form.Group>
+                  <Form.Check type={"checkbox"}>
+                  <Form.Check.Label>Rain</Form.Check.Label>
+                    <Form.Check.Input
+                      type={"checkbox"}
+                      defaultChecked={sneakersDetails.rain}
+                      onClick={(e) => {
+                        setSneakerDetails({ ...sneakersDetails, rain: !sneakersDetails.rain })                      }}
+                    />
+                  </Form.Check>
+
+                  <Form.Check type={"checkbox"}>
+                  <Form.Check.Label>Snow</Form.Check.Label>
+                    <Form.Check.Input
+                      type={"checkbox"}
+                      defaultChecked={sneakersDetails.snow}
+                      onClick={(e) => {
+                        setSneakerDetails({ ...sneakersDetails, snow: !sneakersDetails.snow })
+                      }}
+                    />
+                  </Form.Check>
+                </Form.Group>
                   
                 </ListGroup>
 
@@ -145,7 +170,7 @@ function Form1({ handleModal, showModal }) {
           <Button variant="secondary" onClick={handleModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={addSneakers}>
+          <Button variant="primary" onClick={() => { addSneakers(); handleModal() }}>
             Submit
           </Button>
         </Modal.Footer>
