@@ -145,7 +145,7 @@ function Form1({ handleModal, showModal }) {
                   <Form.Check.Label>Rain</Form.Check.Label>
                     <Form.Check.Input
                       type={"checkbox"}
-                      defaultChecked={sneakersDetails.rain}
+                      checked={sneakersDetails.rain}
                       onClick={(e) => {
                         setSneakerDetails({ ...sneakersDetails, rain: !sneakersDetails.rain })                      }}
                     />
@@ -155,7 +155,7 @@ function Form1({ handleModal, showModal }) {
                   <Form.Check.Label>Snow</Form.Check.Label>
                     <Form.Check.Input
                       type={"checkbox"}
-                      defaultChecked={sneakersDetails.snow}
+                      checked={sneakersDetails.snow}
                       onClick={(e) => {
                         setSneakerDetails({ ...sneakersDetails, snow: !sneakersDetails.snow })
                       }}
