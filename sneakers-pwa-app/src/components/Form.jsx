@@ -18,11 +18,23 @@ const baseURL = "https://nameless-shelf-91357.herokuapp.com";
 
 
 function Form1({ handleModal, showModal }) {
+  const [checked, setChecked] = React.useState(true);
+
+
+  // todo Plamen: use the apiResponse const to add sneakers. (must)
+  // Regardless of the the details being added automatically (Google Vision API) or manually (user filling text field and checkboxes)
+  // make sure to use this state to accomodate those details.
   const [sneakersDetails, setSneakerDetails] = useState({ 
       name: '',
+
+      // score of the image search between 0 and 1 where 1 means the Google's API is 100% certain that it is the exact same image
+      // todo Plamen: if the score is !=0 display it in a horizontal bar (should)
       score: -1, 
       material: '',
       color: '',
+
+      // indicates if the selected shoes are suitable for rain/snow
+      //todo Plamen: add checkboxes for those (must)
       rain: false,
       snow: false 
   })
@@ -34,7 +46,7 @@ function Form1({ handleModal, showModal }) {
   };
 
   useEffect(() => {
-    if (sneakersDetails.score > 0 && sneakersDetails.score < 0.75) {
+    if (sneakersDetails.score > 0 && sneakersDetails.score < 0.5) {
 
       setSneakerDetails({
         name: '',
@@ -57,6 +69,7 @@ function Form1({ handleModal, showModal }) {
       rain: sneakersDetails.rain,
       snow: sneakersDetails.snow
     })
+    handleModal()
   }
 
   const setStateFromChild = (data) => { 
@@ -71,6 +84,10 @@ function Form1({ handleModal, showModal }) {
           })
    }
 
+
+
+
+ 
     const handleChange =(data) => {
       console.log(data.product.displayName)
   };
@@ -132,11 +149,11 @@ function Form1({ handleModal, showModal }) {
                   <label>
                     Rain
                   </label>
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
+                  <InputGroup.Checkbox checked={sneakersDetails.rain} aria-label="Checkbox for following text input"/>
                   <label>
                     Snow
                   </label>
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
+                  <InputGroup.Checkbox checked={sneakersDetails.snow} aria-label="Checkbox for following text input"/>
                   
                 </ListGroup>
 
