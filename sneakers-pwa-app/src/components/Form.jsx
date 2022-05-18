@@ -57,6 +57,15 @@ function Form1({ handleModal, showModal }) {
       rain: sneakersDetails.rain,
       snow: sneakersDetails.snow
     })
+    
+    setSneakerDetails({
+      name: '',
+      score: 0, 
+      material: '',
+      color: '',
+      rain: false,
+      snow: false 
+    });
   }
 
   const setStateFromChild = (data) => { 
@@ -71,10 +80,6 @@ function Form1({ handleModal, showModal }) {
           })
    }
 
-    const handleChange =(data) => {
-      console.log(data.product.displayName)
-  };
-
   const onHandleChange = (e) => {
     let stateUpdated = {
       ...sneakersDetails,
@@ -87,12 +92,12 @@ function Form1({ handleModal, showModal }) {
     <>
       <Modal show={showModal} onHide={handleModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>New pair</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Camera setParentState={setStateFromChild}/>
         <ListGroup>
-                  <InputGroup onChange={handleChange} className="mb-3">
+                  <InputGroup onChange={onHandleChange} className="mb-3">
                     <InputGroup.Text id="basic-addon1">
                       Name:
                     </InputGroup.Text>
@@ -105,7 +110,7 @@ function Form1({ handleModal, showModal }) {
                   
                   {sneakersDetails.score >= 0 && sneakersDetails.score < 0.75 &&
                   <Alert show={showAlert} variant="danger" onClose={() => setShowAlert(false)}>
-                    Could not find any matching sneakers Try again or enter the details manually. 
+                    Could not find any matching sneakers. Try again or enter the details manually. 
                      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Learn how to get more accurate results when using the sneakers scanner.</a>
 
                   </Alert>
