@@ -157,7 +157,6 @@ function Form1({ handleModal, showModal }) {
                     />
                   </InputGroup>
 
-<<<<<<< HEAD
                   <Form.Group>
                   <Form.Check type={"checkbox"}>
                   <Form.Check.Label>Rain</Form.Check.Label>
@@ -180,17 +179,6 @@ function Form1({ handleModal, showModal }) {
                     />
                   </Form.Check>
                 </Form.Group>
-=======
-                  <h5>Weather conditions</h5>
-                  <label>
-                    Rain
-                  </label>
-                  <InputGroup.Checkbox defaultChecked={sneakersDetails.rain} aria-label="Checkbox for following text input"/>
-                  <label>
-                    Snow
-                  </label>
-                  <InputGroup.Checkbox defaultChecked={sneakersDetails.snow} aria-label="Checkbox for following text input"/>
->>>>>>> e7b0e6a0ba621dcbe41ffab39ea5c4cca9a0d36c
                   
                 </ListGroup>
 
