@@ -149,11 +149,11 @@ function Form1({ handleModal, showModal }) {
                   <label>
                     Rain
                   </label>
-                  <InputGroup.Checkbox checked={sneakersDetails.rain} aria-label="Checkbox for following text input"/>
+                  <InputGroup.Checkbox defaultChecked={sneakersDetails.rain} aria-label="Checkbox for following text input"/>
                   <label>
                     Snow
                   </label>
-                  <InputGroup.Checkbox checked={sneakersDetails.snow} aria-label="Checkbox for following text input"/>
+                  <InputGroup.Checkbox defaultChecked={sneakersDetails.snow} aria-label="Checkbox for following text input"/>
                   
                 </ListGroup>
 
